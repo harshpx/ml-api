@@ -1,0 +1,7 @@
+fastapi
+pydantic
+asyncio
+aiohttp
+tensorflow-cpu
+pillow
+numpy
