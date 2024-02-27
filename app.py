@@ -97,6 +97,7 @@ async def dbi_url(data:URLData):
     if dogs_model is None:
         return {"error": "Model not loaded"}
 
+    url = data.url
     image_data = await fetch_image(url)
 
     image = Image.open(io.BytesIO(image_data))
