@@ -69,23 +69,27 @@ async def dbi_img(image: UploadFile = File(...)):
     if dogs_model is None:
         return {"error": "Model not loaded"}
 
-    contents = await image.read()
+    try:
+        contents = await image.read()
 
-    image = Image.open(io.BytesIO(contents))
+        image = Image.open(io.BytesIO(contents))
 
-    img = image.resize((224, 224))
+        img = image.resize((224, 224))
 
-    arr = img_to_array(img)
-    arr = arr/255.0
-    arr = np.expand_dims(arr, axis=0)
-    # return {"message":arr.shape}
+        arr = img_to_array(img)
+        arr = arr/255.0
+        arr = np.expand_dims(arr, axis=0)
+        # return {"message":arr.shape}
 
-    pred = dogs_model.predict(arr)
-    idx = pred.argmax()
-    name = dogs_label_mapper[idx]
-    prob = float(pred[0][idx])
+        pred = dogs_model.predict(arr)
+        idx = pred.argmax()
+        name = dogs_label_mapper[idx]
+        prob = float(pred[0][idx])
 
-    return {"prediction": name, "probability":prob}
+        return {"prediction": name, "probability":prob}
+
+    except:
+        return {"message":"Error in reading Image Data"}
 
 
 @app.post('/dog-breed-identifier/url')
@@ -93,22 +97,23 @@ async def dbi_url(data:URLData):
     if dogs_model is None:
         return {"error": "Model not loaded"}
 
-    url = data.url
-    print("Received request body:", data.url)
+    try:
+        image_data = await fetch_image(url)
 
-    image_data = await fetch_image(url)
+        image = Image.open(io.BytesIO(image_data))
 
-    image = Image.open(io.BytesIO(image_data))
+        img = image.resize((224,224))
+        arr = img_to_array(img)
+        arr = arr/255.0
+        arr = np.expand_dims(arr,0)
+        # return {"message":arr.shape}
 
-    img = image.resize((224,224))
-    arr = img_to_array(img)
-    arr = arr/255.0
-    arr = np.expand_dims(arr,0)
-    # return {"message":arr.shape}
+        pred = dogs_model.predict(arr)
+        idx = pred.argmax()
+        name = dogs_label_mapper[idx]
+        prob = float(pred[0][idx])
 
-    pred = dogs_model.predict(arr)
-    idx = pred.argmax()
-    name = dogs_label_mapper[idx]
-    prob = float(pred[0][idx])
+        return {"prediction": name, "probability":prob}
 
-    return {"prediction": name, "probability":prob}
+    except:
+        return {"message":"Image Broken / Invalid URL"}
