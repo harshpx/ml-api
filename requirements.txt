@@ -3,6 +3,7 @@ pydantic
 asyncio
 aiohttp
 uvicorn
+gunicorn
 python-multipart
 tensorflow-cpu
 pillow
