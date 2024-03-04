@@ -17,6 +17,7 @@ This API is under constant development, more models and endpoints will be added 
     (takes Image formData as input)<br/>
     Example JS code:
     ```
+    const BASE_URL='https://mlapi.online';
     const file = event.target.files[0]; //image blob
     const formData = new FormData();
     formData.append('image', file);
@@ -39,7 +40,7 @@ This API is under constant development, more models and endpoints will be added 
     (takes a vaild URL string as input)<br/>
     Example JS code:
     ```
-    
+    const BASE_URL='https://mlapi.online';
     fetch(`${BASE_URL}/dog-breed-identifier/url`,{
         method:"POST",
         headers: {
