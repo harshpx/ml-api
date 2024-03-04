@@ -9,7 +9,8 @@ This API is under constant development, more models and endpoints will be added 
 ## Models currently available
 
 * ### Dog Breed Identification
-    (A CNN based Image classification models, that classifies for 70 different dog breeds with an accuracy of ~95%)
+    (A CNN based Image classification models, that classifies for 70 different dog breeds with an accuracy of ~95%)<br/>
+    Training Notebook: [https://www.kaggle.com/code/harshpriye/dogs-breed-prediction-cnn-inceptionv3/notebook](https://www.kaggle.com/code/harshpriye/dogs-breed-prediction-cnn-inceptionv3/notebook)
 
 
 ## API Endpoints
