@@ -24,8 +24,6 @@ async def fetch_image(url):
             return await response.read()
 
 
-
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
